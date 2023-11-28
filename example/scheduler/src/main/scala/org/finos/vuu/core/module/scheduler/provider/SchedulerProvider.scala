@@ -15,7 +15,7 @@ class SchedulerProvider(val table: DataTable)(implicit lifecycle: LifecycleConta
 
   def runOnce(): Unit = {
     table.processUpdate(SchedulerColumnNames.SchedulerId, RowWithData(SchedulerColumnNames.SchedulerId, Map(
-      SchedulerColumnNames.SchedulerId -> "test-id"
+      SchedulerColumnNames.SchedulerId -> "test2-id"
     )), clock.now())
   }
 

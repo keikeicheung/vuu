@@ -49,6 +49,7 @@ export const useScheduler = ({
   basketTradingSchema,
   basketTradingConstituentJoinSchema,
   instrumentsSchema,
+  schedulerSchema
 }: BasketTradingHookProps) => {
   const { load, save } = useViewContext();
 
@@ -58,22 +59,17 @@ export const useScheduler = ({
   }, [load]);
 
   const {
-    activeTabIndex,
-    dataSourceBasket,
-    dataSourceBasketTradingControl,
-    dataSourceBasketTradingSearch,
-    dataSourceBasketTradingConstituentJoin,
-    dataSourceInstruments,
-    onSendToMarket,
-    onTakeOffMarket,
+    dataSourceScheduler
   } = useSchedulerDatasources({
     basketInstanceId,
     basketSchema,
     basketTradingSchema,
     basketTradingConstituentJoinSchema,
     instrumentsSchema,
-
+    schedulerSchema
   });
+
+  console.log({dataSourceScheduler})
 
   const [scheduler, setScheduler] = useState<Scheduler | undefined>();
 

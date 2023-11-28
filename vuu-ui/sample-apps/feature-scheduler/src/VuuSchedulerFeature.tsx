@@ -32,7 +32,7 @@ const VuuSchedulerFeature = (props: SchedulerFeatureProps) => {
 
 
   const {
-    dataSourceBasketTradingConstituentJoin
+    dataSourceScheduler
   } = useSchedulerDatasources({
     basketSchema,
     basketInstanceId: "",
@@ -42,11 +42,12 @@ const VuuSchedulerFeature = (props: SchedulerFeatureProps) => {
     schedulerSchema
   })
 
-  console.log("VuuSchedulerFeature 2 - " + {schedulerSchema})
+  console.log({schedulerSchema})
+  console.log({dataSourceScheduler})
 
   return (
     <>
-      <SchedulerTableLive tableSchema={schedulerSchema} dataSource={dataSourceBasketTradingConstituentJoin}/>
+      <SchedulerTableLive tableSchema={schedulerSchema} dataSource={dataSourceScheduler}/>
       <div>Scheduler Table</div>
     </>
   );

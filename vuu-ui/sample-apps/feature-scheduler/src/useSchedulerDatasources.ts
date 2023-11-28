@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { SchedulerFeatureProps } from "./VuuSchedulerFeature";
 import { VuuFilter } from "@finos/vuu-protocol-types";
 
-export type schedulerDataSourceKey =
+export type SchedulerDataSourceKey =
   | "data-source-basket"
   | "data-source-basket-trading-control"
   | "data-source-basket-trading-search"
@@ -32,7 +32,7 @@ export const useSchedulerDatasources = ({
   ] = useMemo(() => {
     const schedulerFilter: VuuFilter = NO_FILTER;
     const dataSourceConfig: [
-      schedulerDataSourceKey,
+      SchedulerDataSourceKey,
       TableSchema,
       number,
       VuuFilter?

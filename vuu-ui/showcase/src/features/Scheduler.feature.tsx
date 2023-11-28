@@ -1,13 +1,13 @@
-import VuuBasketTradingFeature, {
-  BasketTradingFeatureProps,
-  basketDataSourceKey,
-} from "feature-basket-trading";
+
 
 import { useViewContext } from "@finos/vuu-layout";
 import { TableSchema } from "@finos/vuu-data";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { vuuModule, VuuModuleName } from "@finos/vuu-data-test";
-import {SchedulerFeatureProps} from "feature-scheduler";
+import VuuSchedulerFeature, {
+  SchedulerDataSourceKey,
+  SchedulerFeatureProps
+} from "feature-scheduler";
 
 export const SchedulerFeature = ({
   basketSchema,
@@ -20,7 +20,7 @@ export const SchedulerFeature = ({
 
   useMemo(() => {
     const dataSourceConfig: [
-      basketDataSourceKey,
+      SchedulerDataSourceKey,
       TableSchema,
       VuuModuleName
     ][] = [
@@ -48,17 +48,19 @@ export const SchedulerFeature = ({
     basketTradingConstituentJoinSchema,
     basketTradingSchema,
     instrumentsSchema,
+    schedulerSchema,
     saveSession,
   ]);
 
   return (
-    <VuuBasketTradingFeature
+    <VuuSchedulerFeature
       basketSchema={basketSchema}
       basketTradingSchema={basketTradingSchema}
       basketTradingConstituentJoinSchema={basketTradingConstituentJoinSchema}
       instrumentsSchema={instrumentsSchema}
+      schedulerSchema={schedulerSchema}
     />
   );
 };
 
-export default BasketTradingFeature;
+export default SchedulerFeature;

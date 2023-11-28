@@ -3,12 +3,12 @@ import { TableConfig } from "@finos/vuu-datagrid-types";
 import { TableNext, TableProps } from "@finos/vuu-table";
 import { useMemo } from "react";
 import { StatusCell } from "../cell-renderers";
-import columns from "./basketConstituentLiveColumns";
+import columns from "./SchedulerLiveColumns";
 
 console.log(`component loaded StatusCell ${typeof StatusCell}`);
 import "./SchedulerTableLive.css";
 
-const classBase = "vuuBasketTableLive";
+const classBase = "vuuSchedulerTableLive";
 
 export interface SchedulerTableLiveProps extends Omit<TableProps, "config"> {
   tableSchema: TableSchema;
