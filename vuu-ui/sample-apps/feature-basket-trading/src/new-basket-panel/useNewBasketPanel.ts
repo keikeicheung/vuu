@@ -66,7 +66,7 @@ export const useNewBasketPanel = ({
         }
       } else {
         throw Error(
-          "useNewBasketPanel cannot create basket, datasource has no menu"
+          "useSchedulerTableLive cannot create basket, datasource has no menu"
         );
       }
     }

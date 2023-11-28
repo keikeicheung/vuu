@@ -1,64 +1,46 @@
 import { useViewContext } from "@finos/vuu-layout";
 import { DataSource, RemoteDataSource, TableSchema } from "@finos/vuu-data";
 import { useCallback, useMemo, useState } from "react";
-import { BasketTradingFeatureProps } from "./VuuBasketTradingFeature";
+import { SchedulerFeatureProps } from "./VuuSchedulerFeature";
 import { VuuFilter } from "@finos/vuu-protocol-types";
 
-export type basketDataSourceKey =
+export type schedulerDataSourceKey =
   | "data-source-basket"
   | "data-source-basket-trading-control"
   | "data-source-basket-trading-search"
   | "data-source-basket-trading-constituent-join"
-  | "data-source-instruments"
-  | "data-source-scheduler"
-  ;
+  | "data-source-instruments";
 
 const NO_FILTER = { filter: "" };
 
-export const useBasketTradingDataSources = ({
+export const useSchedulerDatasources = ({
   basketSchema,
   basketInstanceId,
   basketTradingSchema,
   basketTradingConstituentJoinSchema,
   instrumentsSchema,
-}: BasketTradingFeatureProps & { basketInstanceId: string }) => {
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  schedulerSchema
+}: SchedulerFeatureProps & { basketInstanceId: string }) => {
 
+  console.log({schedulerSchema})
   const { id, loadSession, saveSession, title } = useViewContext();
 
   const [
-    dataSourceBasket,
-    dataSourceBasketTradingControl,
-    dataSourceBasketTradingSearch,
     dataSourceBasketTradingConstituentJoin,
-    dataSourceInstruments,
   ] = useMemo(() => {
-    const basketFilter: VuuFilter = basketInstanceId
-      ? {
-          filter: `instanceId = "${basketInstanceId}"`,
-        }
-      : NO_FILTER;
+    const schedulerFilter: VuuFilter = NO_FILTER;
     const dataSourceConfig: [
-      basketDataSourceKey,
+      schedulerDataSourceKey,
       TableSchema,
       number,
       VuuFilter?
     ][] = [
-      ["data-source-basket", basketSchema, 100],
-      [
-        "data-source-basket-trading-control",
-        basketTradingSchema,
-        0,
-        basketFilter,
-      ],
-      ["data-source-basket-trading-search", basketTradingSchema, 100],
       [
         "data-source-basket-trading-constituent-join",
         basketTradingConstituentJoinSchema,
         100,
-        basketFilter,
-      ],
-      ["data-source-instruments", instrumentsSchema, 100],
+        schedulerFilter,
+      ]
     ];
 
     const dataSources: DataSource[] = [];
@@ -90,35 +72,9 @@ export const useBasketTradingDataSources = ({
     saveSession,
   ]);
 
-  const handleSendToMarket = useCallback(
-    (basketInstanceId: string) => {
-      dataSourceBasketTradingControl
-        .rpcCall?.({
-          params: [basketInstanceId],
-          rpcName: "sendToMarket",
-          type: "VIEW_PORT_RPC_CALL",
-        })
-        .then((response) => {
-          console.log(`response from sendToMarket call`, {
-            response,
-          });
-        });
-    },
-    [dataSourceBasketTradingControl]
-  );
 
-  const handleTakeOffMarket = useCallback(() => {
-    setActiveTabIndex(0);
-  }, []);
 
   return {
-    activeTabIndex,
-    dataSourceBasket,
-    dataSourceBasketTradingControl,
-    dataSourceBasketTradingSearch,
     dataSourceBasketTradingConstituentJoin,
-    dataSourceInstruments,
-    onSendToMarket: handleSendToMarket,
-    onTakeOffMarket: handleTakeOffMarket,
   };
 };

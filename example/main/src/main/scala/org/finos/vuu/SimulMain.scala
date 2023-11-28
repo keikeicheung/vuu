@@ -13,6 +13,7 @@ import org.finos.vuu.core.module.basket.BasketModule
 import org.finos.vuu.core.module.editable.EditableModule
 import org.finos.vuu.core.module.metrics.MetricsModule
 import org.finos.vuu.core.module.price.PriceModule
+import org.finos.vuu.core.module.scheduler.SchedulerModule
 import org.finos.vuu.core.module.simul.SimulationModule
 import org.finos.vuu.core.module.typeahead.TypeAheadModule
 import org.finos.vuu.core.module.vui.VuiStateModule
@@ -83,6 +84,7 @@ object SimulMain extends App with StrictLogging {
     .withModule(EditableModule())
     .withModule(PermissionModule())
     .withModule(BasketModule())
+    .withModule(SchedulerModule())
 
 
   val vuuServer = new VuuServer(config)

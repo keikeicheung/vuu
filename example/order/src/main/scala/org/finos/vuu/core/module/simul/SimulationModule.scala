@@ -136,11 +136,13 @@ object SimulationModule extends DefaultModule {
       .addTable(
         TableDef(
           name = "instruments",
-          keyField = "ric",
-          columns = Columns.fromNames("ric".string(), "description".string(), "bbg".string(), "isin".string(),
-                    "currency".string(), "exchange".string(), "lotSize".int()),
+          keyField = InstrumentColumnNames.Ric,
+          columns = Columns.fromNames(InstrumentColumnNames.Ric.string(), InstrumentColumnNames.Description.string(),
+            InstrumentColumnNames.BBG.string(), InstrumentColumnNames.ISIN.string(),
+            InstrumentColumnNames.Currency.string(), InstrumentColumnNames.Exchange.string(),
+            InstrumentColumnNames.LotSize.int()),
           VisualLinks(),
-          joinFields = "ric"
+          joinFields = InstrumentColumnNames.Ric
         ),
         (table, vs) => new SimulatedBigInstrumentsProvider(table),
         (table, provider, providerContainer, _) => ViewPortDef(
@@ -271,5 +273,15 @@ object SimulationModule extends DefaultModule {
           joinFields = Seq()
         ))
       .asModule()
+  }
+
+  object InstrumentColumnNames {
+    final val Ric = "ric"
+    final val Description = "description"
+    final val BBG = "bbg"
+    final val ISIN = "isin"
+    final val Currency = "currency"
+    final val Exchange = "exchange"
+    final val LotSize = "lotSize"
   }
 }

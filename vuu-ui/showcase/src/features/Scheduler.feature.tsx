@@ -7,14 +7,15 @@ import { useViewContext } from "@finos/vuu-layout";
 import { TableSchema } from "@finos/vuu-data";
 import { useMemo } from "react";
 import { vuuModule, VuuModuleName } from "@finos/vuu-data-test";
+import {SchedulerFeatureProps} from "feature-scheduler";
 
-export const BasketTradingFeature = ({
+export const SchedulerFeature = ({
   basketSchema,
   basketTradingSchema,
   basketTradingConstituentJoinSchema,
   instrumentsSchema,
-}: BasketTradingFeatureProps) => {
-  console.log('BasketTradingFeature', BasketTradingFeature)
+  schedulerSchema
+}: SchedulerFeatureProps) => {
   const { saveSession } = useViewContext();
 
   useMemo(() => {
@@ -32,6 +33,11 @@ export const BasketTradingFeature = ({
         "BASKET",
       ],
       ["data-source-instruments", instrumentsSchema, "SIMUL"],
+      [
+        "data-source-scheduler",
+        schedulerSchema,
+        "SCHEDULER",
+      ],
     ];
     for (const [key, schema, module] of dataSourceConfig) {
       const dataSource = vuuModule(module).createDataSource(schema.table.table);
@@ -44,7 +50,7 @@ export const BasketTradingFeature = ({
     instrumentsSchema,
     saveSession,
   ]);
-console.log('VuuBasketTradingFeature', VuuBasketTradingFeature)
+
   return (
     <VuuBasketTradingFeature
       basketSchema={basketSchema}

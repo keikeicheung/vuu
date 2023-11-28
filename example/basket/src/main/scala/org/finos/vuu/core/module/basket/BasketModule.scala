@@ -7,6 +7,7 @@ import org.finos.vuu.core.module.basket.provider._
 import org.finos.vuu.core.module.basket.service.{BasketService, BasketTradingConstituentJoinService, BasketTradingConstituentService, BasketTradingService}
 import org.finos.vuu.core.module.price.PriceModule
 import org.finos.vuu.core.module.simul.InstrumentsService
+import org.finos.vuu.core.module.simul.SimulationModule.InstrumentColumnNames
 import org.finos.vuu.core.module.{DefaultModule, ModuleFactory, TableDefContainer, ViewServerModule}
 import org.finos.vuu.core.table.Columns
 import org.finos.vuu.provider.CompositeProvider
@@ -21,6 +22,7 @@ object BasketModule extends DefaultModule {
   final val BasketConstituentTable = "basketConstituent"
   final val BasketTradingConstituentTable = "basketTradingConstituent"
   final val BasketTradingConstituentJoin = "basketTradingConstituentJoin"
+  final val BasketInstrument = "basketInstrument"
 
   def apply()(implicit clock: Clock, lifecycle: LifecycleContainer, tableDefContainer: TableDefContainer): ViewServerModule = {
 
@@ -117,12 +119,14 @@ object BasketModule extends DefaultModule {
       )
       .addTable(
         TableDef(
-          name = "basketInstruments",
-          keyField = "ric",
-          columns = Columns.fromNames("ric".string(), "description".string(), "bbg".string(), "isin".string(),
-            "currency".string(), "exchange".string(), "lotSize".int()),
+          name = BasketInstrument,
+          keyField = InstrumentColumnNames.Ric,
+          columns = Columns.fromNames(InstrumentColumnNames.Ric.string(), InstrumentColumnNames.Description.string(),
+            InstrumentColumnNames.BBG.string(), InstrumentColumnNames.ISIN.string(),
+            InstrumentColumnNames.Currency.string(), InstrumentColumnNames.Exchange.string(),
+            InstrumentColumnNames.LotSize.int()),
           VisualLinks(),
-          joinFields = "ric"
+          joinFields = InstrumentColumnNames.Ric
         ),
         (table, vs) => new CompositeProvider(new SimulatedBigInstrumentsProvider(table), new BasketInstrumentProvider(table)),
         (table, provider, providerContainer, _)
