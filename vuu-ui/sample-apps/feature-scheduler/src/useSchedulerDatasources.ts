@@ -9,7 +9,9 @@ export type schedulerDataSourceKey =
   | "data-source-basket-trading-control"
   | "data-source-basket-trading-search"
   | "data-source-basket-trading-constituent-join"
-  | "data-source-instruments";
+  | "data-source-instruments"
+  | "data-source-scheduler"
+  ;
 
 const NO_FILTER = { filter: "" };
 
@@ -26,7 +28,7 @@ export const useSchedulerDatasources = ({
   const { id, loadSession, saveSession, title } = useViewContext();
 
   const [
-    dataSourceBasketTradingConstituentJoin,
+    dataSourceScheduler,
   ] = useMemo(() => {
     const schedulerFilter: VuuFilter = NO_FILTER;
     const dataSourceConfig: [
@@ -36,8 +38,8 @@ export const useSchedulerDatasources = ({
       VuuFilter?
     ][] = [
       [
-        "data-source-basket-trading-constituent-join",
-        basketTradingConstituentJoinSchema,
+        "data-source-scheduler",
+        schedulerSchema,
         100,
         schedulerFilter,
       ]
@@ -66,15 +68,16 @@ export const useSchedulerDatasources = ({
     basketInstanceId,
     basketTradingConstituentJoinSchema,
     instrumentsSchema,
+    schedulerSchema,
     loadSession,
     id,
     title,
     saveSession,
   ]);
 
-
+console.log({dataSourceScheduler})
 
   return {
-    dataSourceBasketTradingConstituentJoin,
+    dataSourceScheduler,
   };
 };

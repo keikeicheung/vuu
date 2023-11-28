@@ -4,39 +4,20 @@ import { useViewContext } from "@finos/vuu-layout";
 import { buildColumnMap, ColumnMap } from "@finos/vuu-utils";
 import { ContextMenuConfiguration } from "@finos/vuu-popups";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { BasketSelectorProps } from "./basket-selector";
-import { BasketChangeHandler } from "./basket-toolbar";
 import { SchedulerTableLive } from "./scheduler-table-live";
-// import { useBasketContextMenus } from "./useBasketContextMenus";
 import { useSchedulerDatasources } from "./useSchedulerDatasources";
 import { SchedulerFeatureProps } from "./VuuSchedulerFeature";
 import { VuuDataRow, VuuDataRowDto } from "packages/vuu-protocol-types";
 
-export class Basket {
-  basketId: string;
-  basketName: string;
+export class Scheduler {
+  schedulerId: string;
+  schedulerName: string;
   dataSourceRow: DataSourceRow;
-  filledPct: number;
-  fxRateToUsd: number;
-  instanceId: string;
-  side: string;
-  status: string;
-  totalNotional: number;
-  totalNotionalUsd: number;
-  units: number;
 
   constructor(data: DataSourceRow, columnMap: ColumnMap) {
     this.dataSourceRow = data;
-    this.basketId = data[columnMap.basketId] as string;
-    this.basketName = data[columnMap.basketName] as string;
-    this.filledPct = data[columnMap.filledPct] as number;
-    this.fxRateToUsd = data[columnMap.fxRateToUsd] as number;
-    this.instanceId = data[columnMap.instanceId] as string;
-    this.side = data[columnMap.side] as string;
-    this.status = data[columnMap.status] as string;
-    this.totalNotional = data[columnMap.totalNotional] as number;
-    this.totalNotionalUsd = data[columnMap.totalNotionalUsd] as number;
-    this.units = data[columnMap.units] as number;
+    this.schedulerId = data[columnMap.basketId] as string;
+    this.schedulerName = data[columnMap.basketName] as string;
   }
 }
 
@@ -94,7 +75,7 @@ export const useScheduler = ({
 
   });
 
-  const [scheduler, setScheduler] = useState<Basket | undefined>();
+  const [scheduler, setScheduler] = useState<Scheduler | undefined>();
 
   const [basketCount, setBasketCount] = useState(-1);
 
@@ -123,10 +104,10 @@ export const useScheduler = ({
             setBasketCount(message.size);
           }
           if (message.rows && message.rows.length > 0) {
-            const basket = new Basket(message.rows[0], columnMapBasketTrading);
+            const basket = new Scheduler(message.rows[0], columnMapBasketTrading);
             console.log({ basket, row: message.rows[0] });
 
-            setScheduler(new Basket(message.rows[0], columnMapBasketTrading));
+            setScheduler(new Scheduler(message.rows[0], columnMapBasketTrading));
           }
         }
       }

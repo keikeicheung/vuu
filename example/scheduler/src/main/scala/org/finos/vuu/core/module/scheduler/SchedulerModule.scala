@@ -20,7 +20,12 @@ object SchedulerModule extends DefaultModule {
         TableDef(
           name = SchedulerTable,
           keyField = SchedulerColumnNames.SchedulerId,
-          columns = Columns.fromNames(SchedulerColumnNames.SchedulerId.string()),
+          columns = Columns.fromNames(
+            SchedulerColumnNames.SchedulerId.string(),
+            SchedulerColumnNames.Name.string(),
+            SchedulerColumnNames.Enabled.string(),
+            SchedulerColumnNames.Api.string()
+          ),
           VisualLinks(),
           joinFields = SchedulerColumnNames.SchedulerId
         ),
@@ -32,6 +37,9 @@ object SchedulerModule extends DefaultModule {
 
   object SchedulerColumnNames {
     final val SchedulerId = "schedulerId"
+    final val Name = "name"
+    final val Enabled = "enabled"
+    final val Api = "api"
 
   }
 }

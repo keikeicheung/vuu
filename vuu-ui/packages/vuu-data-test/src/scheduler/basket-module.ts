@@ -65,7 +65,6 @@ const createDataSource = (tableName: SchedulerTableName) => {
     menu: menus[tableName],
     rpcServices: services[tableName],
     table: tables[tableName],
-    // updateGenerator: createUpdateGenerator?.(),
   });
 };
 

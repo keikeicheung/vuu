@@ -9,6 +9,9 @@ export const schemas: Readonly<
   scheduler: {
     columns: [
       { name: "schedulerId", serverDataType: "string" },
+      { name: "name", serverDataType: "string" },
+      { name: "enabled", serverDataType: "string" },
+      { name: "api", serverDataType: "string" },
     ],
     key: "schedulerId",
     table: { module: "SCHEDULER", table: "scheduler" },
